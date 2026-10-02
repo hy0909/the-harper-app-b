@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THE HARPER 앱 시안 B — 지도</title>
+  <meta name="description" content="THE HARPER 모바일앱 검색(지도) 화면을 웹에서 미리 보는 페이지. 피그마 시안이 아직 없어 임의로 구성한 화면">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tinos&display=swap" rel="stylesheet">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="styles.css?v=27">
+  <link rel="stylesheet" href="block.css?v=1">
+</head>
+<body>
+  <main class="phone phone--explore phone--map" aria-label="THE HARPER 지도">
+
+    <header class="header">
+      <a class="header__logo" href="index.html">THE HARPER</a>
+      <a class="header__avatar" href="#" aria-label="내 정보" aria-disabled="true"></a>
+    </header>
+
+    <div class="explore">
+      <nav class="explore__tabs" aria-label="보기 방식">
+        <a class="explore__tab" href="search.html">목록</a>
+        <a class="explore__tab" href="map.html" aria-current="page">지도</a>
+      </nav>
+
+      <div class="explore__below">
+        <div class="filter" style="padding: 0 24px;">
+          <div class="filter__count">
+            <span>전체</span>
+            <span class="filter__count-num">100</span>
+          </div>
+          <div class="filter__groups">
+            <button type="button" class="filter__group" id="area-toggle" data-drawer="area-drawer" aria-haspopup="dialog" aria-expanded="false">
+              <span id="area-label" data-drawer-label>지역</span>
+              <img src="assets/chevron-down.svg" width="20" height="20" alt="">
+            </button>
+            <button type="button" class="filter__group" id="tier-toggle" data-drawer="tier-drawer" aria-haspopup="dialog" aria-expanded="false">
+              <span id="tier-label" data-drawer-label>티어</span>
+              <img src="assets/chevron-down.svg" width="20" height="20" alt="">
+            </button>
+          </div>
+        </div>
+
+        <!-- 지도: 피그마 31:9779의 회색 자리에 실제 지도(Leaflet + OpenStreetMap 타일)를 올림. 핀을 누르면 아래에 매장 카드 -->
+        <div class="map" id="map" role="region" aria-label="성수 편집샵 지도">
+          <div class="map__card" id="map-card" hidden>
+            <a class="shop-row" id="map-card-link" href="shop.html?id=0" data-area="seongsu">
+              <div class="shop-row__thumb">
+                <img class="photo__img" id="map-card-photo" src="assets/photos/seongsu-brick-showroom.jpg" alt="">
+                <div class="photo__shade" aria-hidden="true"></div>
+                <span class="badge badge--search" id="map-card-badge">PICK</span>
+              </div>
+              <div class="shop-row__body">
+                <div class="shop-row__text">
+                  <h2 class="shop-row__name" id="map-card-name"></h2>
+                  <p class="shop-row__addr" id="map-card-addr"></p>
+                </div>
+                <p class="shop-row__note"><img src="assets/check-circle.svg" width="16" height="16" alt=""><span id="map-card-note"></span></p>
+              </div>
+              <div class="shop-row__tier"><b id="map-card-tier">1</b><span>TIER</span></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 하단 탭: 글자만 -->
+    <nav class="tabbar" aria-label="주요 메뉴">
+      <a class="tab" href="index.html"><span class="tab__label">홈</span></a>
+      <a class="tab" href="search.html" aria-current="page"><span class="tab__label">검색</span></a>
+      <a class="tab" href="#" aria-disabled="true"><span class="tab__label">내 정보</span></a>
+    </nav>
+
+    <!-- 지역 선택 드로어: 전체 · 성수 · 한남 · 압구정 (처음엔 전체) -->
+    <div class="drawer" id="area-drawer" data-event="areachange" hidden>
+      <div class="drawer__dim" data-drawer-close></div>
+      <div class="drawer__sheet" role="dialog" aria-modal="true" aria-labelledby="area-drawer-title">
+        <span class="drawer__handle" aria-hidden="true"></span>
+        <p class="drawer__title" id="area-drawer-title">지역</p>
+        <ul class="drawer__list" role="listbox" aria-label="지역">
+          <li><button type="button" class="drawer__item" role="option" data-area="all" data-label="지역" aria-selected="true">전체</button></li>
+          <li><button type="button" class="drawer__item" role="option" data-area="seongsu">성수</button></li>
+          <li><button type="button" class="drawer__item" role="option" data-area="hannam">한남</button></li>
+          <li><button type="button" class="drawer__item" role="option" data-area="apgujeong">압구정</button></li>
+        </ul>
+      </div>
+    </div>
+    <!-- 티어 선택 드로어: 1~5 -->
+    <div class="drawer" id="tier-drawer" data-event="tierchange" hidden>
+      <div class="drawer__dim" data-drawer-close></div>
+      <div class="drawer__sheet" role="dialog" aria-modal="true" aria-labelledby="tier-drawer-title">
+        <span class="drawer__handle" aria-hidden="true"></span>
+        <p class="drawer__title" id="tier-drawer-title">티어</p>
+        <ul class="drawer__list" role="listbox" aria-label="티어">
+          <li><button type="button" class="drawer__item" role="option" data-tier="all" data-label="티어" aria-selected="true">전체</button></li>
+          <li><button type="button" class="drawer__item" role="option" data-tier="1">티어 1</button></li>
+          <li><button type="button" class="drawer__item" role="option" data-tier="2">티어 2</button></li>
+          <li><button type="button" class="drawer__item" role="option" data-tier="3">티어 3</button></li>
+          <li><button type="button" class="drawer__item" role="option" data-tier="4">티어 4</button></li>
+          <li><button type="button" class="drawer__item" role="option" data-tier="5">티어 5</button></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="drawer.js?v=2"></script>
+  <script src="shops.js?v=2"></script>
+  <script src="map.js?v=8"></script>
+</body>
+</html>

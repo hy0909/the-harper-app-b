@@ -1,0 +1,767 @@
+/* THE HARPER 앱 홈 화면 미리보기 — 피그마 w:340 프레임을 웹으로 옮김 */
+:root {
+  --ink: #3a362f;      /* 100 */
+  --ink-70: #5b5650;   /* 70 */
+  --ink-60: #87827c;   /* 60 */
+  --ink-50: #a9a39d;   /* 50 */
+  --ground: #faf9f6;   /* secondary */
+  --bg: #f7f4ec;       /* 앱 바탕 */
+  --cocoa: #6f4a3a;    /* 코코아 브라운 */
+  --rose: #d6a3ab;     /* 안틱 로즈 */
+  --blush: #e8b4b8;
+  --beige: #d8c3a5;
+  --jade: #8fa693;
+  --terracotta: #c97b5c;
+  --amber: #c9a15c;
+  --font-ui: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-logo: "Tinos", "Times New Roman", Times, serif;
+}
+
+* { box-sizing: border-box; }
+html {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+html, body { margin: 0; padding: 0; }
+body {
+  background: #e9e6df;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip; /* hidden 이면 position: sticky 가 안 먹는다 */
+}
+p, h1, h2 { margin: 0; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+img { display: block; }
+
+/* 폰 화면 폭(440px)으로 가운데 정렬 */
+.phone {
+  width: min(440px, 100%);
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #efede9;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-bottom: 96px; /* 하단 탭 48 + 여백 40 */
+}
+
+/* 헤더 */
+.header {
+  height: 44px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header__logo {
+  text-decoration: none; /* 로고를 누르면 홈으로 */
+  font-family: var(--font-logo);
+  font-size: 20px;
+  line-height: 1.36;
+  letter-spacing: 2px;
+  color: var(--ink);
+}
+.header__icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 56px; /* 피그마 29:5687: 영역 사이 56 */
+}
+
+/* 공통 소제목 */
+.eyebrow {
+  /* 피그마 subtitle/xl: SemiBold 20 */
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: -0.24px;
+  color: var(--ink); /* 피그마: 소제목은 100(잉크) */
+}
+.eyebrow--sm {
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.0912px;
+  color: var(--ink-70);
+}
+
+/* 오늘의 Day Drop */
+.today { display: flex; flex-direction: column; gap: 0; }
+.today__head { margin-bottom: 12px; } /* 제목 블록 ↔ 사진 12 */
+.today__head {
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.today__headline {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 1.313;
+  letter-spacing: -0.8096px;
+  color: var(--ink);
+}
+.today__media { padding: 0 24px; display: flex; flex-direction: column; }
+/* 큰 사진은 모두 16:9 (높이는 폭에 따라 정해진다) */
+.photo--hero { aspect-ratio: 16 / 9; padding: 16px 20px; border-radius: 16px 16px 0 0; }
+.today__price-row {
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--ink);
+  border-radius: 0 0 16px 16px; /* 사진과 가격 줄 사이 선 없음 */
+}
+.today__price-row .price { flex: 1 0 0; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.today__price-row .price__value {
+  color: var(--ground);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.24px;
+}
+.today__price-row .price__note {
+  color: var(--ground);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  line-height: 1.36;
+  letter-spacing: -0.11px;
+  mix-blend-mode: normal;
+}
+.today__price-row .button {
+  background: var(--ground);
+  color: var(--ink);
+  width: 80px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.3;
+  letter-spacing: -0.28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 사진 블록: 아래쪽 어둡게 + 에디터 표시 */
+.photo {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  overflow: hidden;
+}
+.photo--card { aspect-ratio: 16 / 9; padding: 16px 20px; border-radius: 12px; }
+.photo--pick { aspect-ratio: 16 / 9; padding: 16px 20px; border: 1px solid #d6d3cf; border-radius: 12px; }
+.photo__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.6) 100%);
+  pointer-events: none;
+}
+.editor {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.editor__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 99px;
+  background: var(--ink-60);
+}
+.editor__name {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.36;
+  letter-spacing: -0.12px;
+  color: var(--ground);
+}
+
+/* 가격 */
+.price { display: flex; flex-direction: column; gap: 4px; }
+.price--right { align-items: flex-end; text-align: right; flex: 1 0 0; min-width: 0; padding: 4px 0; }
+.price__value {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: -0.24px;
+  color: var(--ink-70);
+  white-space: nowrap;
+}
+.price__note {
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.36;
+  letter-spacing: -0.11px;
+  color: var(--ink-60);
+  mix-blend-mode: multiply;
+  white-space: nowrap;
+}
+
+/* 투어 종류 */
+.tours { display: flex; flex-direction: column; gap: 8px; } /* 제목 줄 ↔ 카드 8 */
+.tours__head {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.tours__head .eyebrow { flex: 1 0 0; min-width: 0; }
+.tours__nav,
+.picks__nav { display: flex; align-items: center; gap: 8px; }
+/* 화살표 버튼: 32 네모, 연회색 바탕 + 테두리, 모서리 8, 안에 20px 꺾쇠 */
+.tours__arrow,
+.picks__arrow {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: #f2f2f2;
+  border: 1px solid #d6d3cf;
+  border-radius: 8px;
+}
+.tours__arrow[data-dir="-1"],
+.picks__arrow[data-dir="-1"] { padding-right: 2px; }
+.tours__arrow[data-dir="1"],
+.picks__arrow[data-dir="1"] { padding-left: 2px; }
+.tours__arrow:disabled,
+.picks__arrow:disabled { opacity: 0.35; cursor: default; }
+
+.tours__carousel {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.tours__track {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  padding: 0 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 20px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.tours__track::-webkit-scrollbar { display: none; }
+.tour-card {
+  flex: 0 0 398px;
+  scroll-snap-align: start;
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tour-card__tier {
+  /* 피그마에서 보이는 카드(2번) 기준: 로즈 SemiBold 14. 세 장 공통 */
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.429;
+  letter-spacing: -0.168px;
+  color: var(--rose);
+}
+.tour-card__row { display: flex; align-items: flex-end; gap: 0; }
+.tour-card__title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: -0.24px;
+  color: var(--ink-70);
+}
+.tour-card .price--right { gap: 1px; }
+.tour-card .price__value {
+  color: var(--ink-70);
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: -0.24px;
+}
+
+/* 가로 카드 묶음 위치 점 5개: 현재 장만 잉크색 */
+.dots { display: flex; gap: 6px; justify-content: center; height: 6px; }
+.dots__dot { width: 6px; height: 6px; border-radius: 50%; background: #dedbd3; }
+.dots__dot--on { background: var(--ink); }
+
+/* 에디터 큐레이션 피드 */
+.feed { display: flex; flex-direction: column; gap: 8px; }
+.feed__head { padding: 0 20px; }
+.feed__list { display: flex; flex-direction: column; gap: 0; width: 100%; }
+.feed-card {
+  width: 100%;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  z-index: 0;
+}
+.feed-card:nth-child(-n+3) { margin-bottom: -40px; }
+/* 피그마 card 효과: DROP_SHADOW 0 -4 16 0, #00000066 */
+.feed-card:nth-child(n+2) { box-shadow: 0 -4px 16px 0 rgba(0, 0, 0, 0.4); z-index: 1; }
+.feed-card:nth-child(3) { z-index: 2; }
+.feed-card:nth-child(4) { z-index: 3; }
+.feed-card--blush { background: var(--blush); }
+.feed-card--beige { background: var(--beige); }
+.feed-card--jade { background: var(--jade); }
+.feed-card--terracotta { background: var(--terracotta); }
+
+.feed-card__head { display: flex; flex-direction: column; gap: 0; }
+.feed-card__row { display: flex; align-items: flex-start; gap: 0; }
+.feed-card__title {
+  flex-shrink: 0;
+  word-break: keep-all; /* 낱말 중간에서 줄이 끊기지 않게 */
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1.364;
+  letter-spacing: -0.4268px;
+  color: var(--ink);
+}
+/* 피드 카드 제목 폭 */
+.feed-card:nth-child(1) .feed-card__title { width: 191px; }
+.feed-card:nth-child(n+2) .feed-card__title { width: 189px; }
+.feed-card__row .price--right { flex: 1; padding: 0; gap: 1px; align-items: flex-end; }
+.feed-card__row .price__value {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.24px;
+  color: var(--ink);
+  text-align: right;
+}
+/* 제목·가격·기준 글자색은 카드 바탕색마다 하나로 통일(피그마 29:5687) */
+.feed-card--blush .feed-card__title, .feed-card--blush .price__value, .feed-card--blush .price__note { color: #6f4245; }
+.feed-card--beige .feed-card__title, .feed-card--beige .price__value, .feed-card--beige .price__note { color: #675843; }
+.feed-card--jade .feed-card__title, .feed-card--jade .price__value, .feed-card--jade .price__note { color: #2c4831; }
+.feed-card--terracotta .feed-card__title, .feed-card--terracotta .price__value, .feed-card--terracotta .price__note { color: #582f1e; }
+
+/* 에디터's PICK */
+.picks { display: flex; flex-direction: column; gap: 8px; }
+.picks__head {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.picks__head .eyebrow { flex: 1 0 0; min-width: 0; }
+.picks__scroll {
+  display: flex;
+  gap: 8px;
+  padding: 0 24px;
+  scroll-padding-left: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.picks__scroll::-webkit-scrollbar { display: none; }
+.pick-card {
+  flex: 0 0 400px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.pick-card__text { display: flex; flex-direction: column; gap: 0; }
+.pick-card__title {
+  word-break: keep-all;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1.364;
+  letter-spacing: -0.4268px;
+  color: var(--ink);
+}
+.pick-card__price {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+}
+.pick-card__value {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.0912px;
+  color: var(--ink-70);
+}
+.pick-card__note {
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.36;
+  letter-spacing: -0.11px;
+  color: var(--ink-60);
+  mix-blend-mode: multiply;
+}
+
+
+/* 피드 카드는 매거진 상세로 가는 링크 */
+a.feed-card { color: inherit; text-decoration: none; display: flex; }
+
+/* 하단 탭 */
+.tabbar {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: min(440px, 100%);
+  height: 56px;
+  display: flex;
+  background: var(--ink); /* 피그마: 탭 바 잉크 배경 */
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 10;
+}
+.tab {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: var(--ink-50);
+  text-decoration: none;
+}
+.tab[aria-current="page"],
+.tab[aria-current="page"] .tab__label {
+  color: var(--ground); /* 활성: #faf9f6 */
+}
+.tab__icon {
+  width: 24px;
+  height: 24px;
+  background-color: var(--ink-50);
+  -webkit-mask: var(--tab-icon) center / contain no-repeat;
+  mask: var(--tab-icon) center / contain no-repeat;
+}
+.tab[aria-current="page"] .tab__icon {
+  background-color: var(--ground);
+}
+.tab__icon--home { --tab-icon: url("assets/material/home-rounded.svg"); }
+.tab__icon--search { --tab-icon: url("assets/lucide/search.svg"); mask-size: 22px; -webkit-mask-size: 22px; } /* 검색만 Lucide 선 아이콘, 선형이라 커 보여서 2px 작게 */
+.tab__icon--user { --tab-icon: url("assets/material/person-rounded.svg"); }
+.tab__label {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 1.3;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* 검색: 매장 목록 · 지도 */
+.phone--explore { gap: 0; }
+.explore {
+  padding: 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.explore__tabs {
+  padding: 0 24px;
+  display: flex;
+  gap: 20px;
+}
+.explore__tab {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.357;
+  letter-spacing: -0.6608px;
+  color: #c6c1bc; /* 40 */
+  text-decoration: none;
+  white-space: nowrap;
+}
+.explore__tab[aria-current="page"] { color: var(--ink); }
+.explore__below {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 필터 행 */
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.filter__count {
+  flex: 1 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.429;
+  letter-spacing: -0.168px;
+  color: var(--ink-60);
+}
+.filter__count-num {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.429;
+  letter-spacing: -0.168px;
+  color: var(--ink-60);
+}
+.filter__groups {
+  display: flex;
+  gap: 16px;
+}
+.filter__group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.0912px;
+  color: var(--ink);
+}
+.filter__group img {
+  width: 20px;
+  height: 20px;
+}
+button.filter__group { padding: 0; }
+
+/* 아래에서 올라오는 드로어 */
+.drawer { position: fixed; inset: 0; z-index: 20; }
+.drawer[hidden] { display: none; }
+.drawer__dim { position: absolute; inset: 0; background: rgba(58, 54, 47, 0.4); }
+.drawer__sheet {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: min(440px, 100%);
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  padding: 8px 24px calc(24px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  animation: drawer-up 0.22s ease-out;
+}
+@keyframes drawer-up { from { transform: translate(-50%, 100%); } to { transform: translate(-50%, 0); } }
+.drawer__handle { width: 40px; height: 4px; border-radius: 999px; background: #d6d3cf; margin: 0 auto 16px; }
+.drawer__title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: -0.24px;
+  color: var(--ink);
+  padding-bottom: 12px;
+}
+.drawer__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.drawer__item {
+  width: 100%;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.0912px;
+  color: var(--ink-70);
+  border-bottom: 1px solid #f2f2f2;
+}
+.drawer__item:last-child { border-bottom: 0; }
+.drawer__item[aria-selected="true"] { color: var(--ink); }
+.drawer__item[aria-selected="true"]::after {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background-color: var(--cocoa);
+  -webkit-mask: url("assets/check.svg") center / contain no-repeat;
+  mask: url("assets/check.svg") center / contain no-repeat;
+}
+
+.shop-list {
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.shop-row { display: flex; align-items: center; gap: 12px; }
+a.shop-row { color: inherit; text-decoration: none; }
+.shop-row[hidden] { display: none; }
+.shop-row__thumb {
+  position: relative;
+  flex: 0 0 100px;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #d6d3cf; /* 30 */
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  overflow: hidden;
+}
+.shop-row__thumb .photo__img,
+.shop-row__thumb .photo__shade { border-radius: 9px; }
+.badge {
+  position: relative;
+  background: var(--beige);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1.273;
+  letter-spacing: 0.3421px;
+  color: #45413b; /* 80 */
+  white-space: nowrap;
+}
+.badge--search {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #6f4a3a;
+  color: #e8b4b8;
+}
+.shop-row__body { flex: 1 0 0; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.shop-row__text { display: flex; flex-direction: column; gap: 4px; }
+.shop-row__name {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.shop-row__addr {
+  font-family: var(--font-ui);
+  font-weight: 400; /* 피그마: Regular 14 */
+  font-size: 14px;
+  line-height: 1.571;
+  letter-spacing: 0.203px;
+  color: var(--ink-60);
+}
+.shop-row__note span {
+  font-family: var(--font-ui);
+  font-weight: 500; /* 피그마: Medium 13 */
+  font-size: 13px;
+  line-height: 1.385;
+  letter-spacing: 0.2522px;
+  color: var(--ink-60);
+}
+.shop-row__note {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+  background: var(--ground);
+  border-radius: 8px;
+  padding: 2px 8px;
+}
+.shop-row__note span { flex: 1 0 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* 지도 자리: 피그마 31:9779 */
+/* 지도 (Leaflet) */
+.map {
+  position: relative;
+  width: 100%;
+  height: 666px; /* 피그마 기준값. 지도 화면에서는 아래 규칙으로 화면 끝까지 늘어난다 */
+  background: #d9d9d9; /* 타일이 뜨기 전 피그마 자리색 */
+  z-index: 0;
+}
+/* 지도 화면: 화면 높이에 맞춰 지도가 하단 탭까지 꽉 차게 */
+.phone--map { min-height: 100vh; min-height: 100dvh; padding-bottom: 56px; }
+.phone--map .explore { flex: 1 0 auto; padding-bottom: 0; }
+.phone--map .explore__below { flex: 1 0 auto; }
+.phone--map .map { flex: 1 0 auto; height: auto; min-height: 420px; }
+.map .leaflet-container { font-family: var(--font-ui); background: #e9e6df; }
+.map .leaflet-control-attribution { font-size: 9px; color: var(--ink-60); background: rgba(250, 249, 246, 0.8); }
+.map .leaflet-control-attribution a { color: var(--ink-60); }
+.map .leaflet-control-zoom { display: none; } /* 손가락으로 확대·축소 */
+
+/* 핀: 코코아 점 + 매장명 */
+.map-pin { display: flex; flex-direction: column; align-items: center; gap: 4px; width: max-content; transform: translate(-50%, -100%); cursor: pointer; }
+.map-pin__dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--cocoa);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+.map-pin__label {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.36;
+  letter-spacing: -0.12px;
+  color: var(--ink);
+  background: #fff;
+  border-radius: 999px;
+  padding: 3px 8px;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.map-pin--pick .map-pin__dot { background: var(--rose); }
+.map-pin--active .map-pin__dot { width: 28px; height: 28px; }
+.map-pin--active .map-pin__label { background: var(--ink); color: var(--ground); }
+.leaflet-marker-icon.map-pin-icon { background: none; border: 0; }
+
+/* 핀을 누르면 뜨는 매장 카드 */
+.map__card {
+  /* 피그마 31:9779 > 32:11682: 바탕 #efede9, 모서리 12, 안쪽 여백 12, 테두리·그림자 없음, 아래 24 */
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1000;
+  background: #efede9;
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid #ddd9d3; /* 바탕(#efede9)보다 한 단계 어두운 연한 선 */
+  box-shadow: 0 4px 16px rgba(58, 54, 47, 0.22); /* 지도와 명도가 비슷해 그림자로 띄운다(피그마엔 없음) */
+}
+.map__card[hidden] { display: none; }

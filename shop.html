@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THE HARPER 앱 시안 B — 샵 상세</title>
+  <meta name="description" content="THE HARPER 모바일앱 샵(브랜드) 상세 화면을 웹에서 미리 보는 페이지. 설계서 08 샵 상세 구조(사진 캐러셀 · 브랜드명 · 에디터 노트 · 매장 정보 · 탭 · 리뷰 · 하단 버튼)로 구성">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tinos&display=swap" rel="stylesheet">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="styles.css?v=27">
+  <link rel="stylesheet" href="magazine.css?v=6">
+  <link rel="stylesheet" href="shop.css?v=2">
+  <link rel="stylesheet" href="block.css?v=1">
+</head>
+<body class="body--magazine">
+  <main class="phone phone--magazine phone--shop" aria-label="THE HARPER 샵 상세">
+
+    <header class="mag-header">
+      <a class="mag-header__back" href="search.html" aria-label="뒤로">
+        <img src="assets/chevron-left.svg" width="24" height="24" alt="">
+      </a>
+      <button type="button" class="mag-header__share" aria-label="공유">
+        <img src="assets/share.svg" width="24" height="24" alt="">
+      </button>
+    </header>
+
+    <!-- ① 사진 캐러셀: 옆으로 밀어 넘기고, 오른쪽 위에 몇 번째 사진인지 표시 -->
+    <section class="gallery" aria-label="매장 사진">
+      <div class="gallery__track" id="gallery-track"></div>
+      <span class="gallery__count" id="gallery-count">1/1</span>
+      <div class="dots gallery__dots" id="gallery-dots" aria-hidden="true"></div>
+    </section>
+
+    <article class="mag">
+
+      <!-- ② 브랜드명 · 티어 배지 · 태그 -->
+      <div class="mag__block">
+        <div class="mag__title-group">
+          <div class="shop__name-row">
+            <h1 class="mag__title" id="shop-name">매장명</h1>
+            <span class="badge badge--pick" id="shop-badge">PICK</span>
+          </div>
+          <p class="shop__addr" id="shop-addr"></p>
+        </div>
+        <div class="shop__chips" id="shop-tags"></div>
+      </div>
+
+      <!-- ③ 에디터 큐레이션 노트 -->
+      <div class="mag__block">
+        <div class="mag__quote shop__note">
+          <img class="mag__quote-icon" src="assets/annotation.svg" width="20" height="20" alt="">
+          <p class="mag__summary" id="shop-note"></p>
+          <div class="editor editor--ink">
+            <span class="editor__avatar" aria-hidden="true"></span>
+            <span class="editor__name">에디터H</span>
+          </div>
+        </div>
+
+        <!-- ④ 매장 정보 -->
+        <dl class="mag__info">
+          <div class="mag__info-labels">
+            <dt>주소</dt>
+            <dt>영업시간</dt>
+            <dt>휴무</dt>
+            <dt>전화</dt>
+          </div>
+          <div class="mag__info-values">
+            <dd id="shop-info-addr"></dd>
+            <dd id="shop-info-hours">[확인 필요]</dd>
+            <dd id="shop-info-closed">[확인 필요]</dd>
+            <dd id="shop-info-phone">[확인 필요]</dd>
+          </div>
+        </dl>
+      </div>
+    </article>
+
+    <!-- ⑤ 탭: 스크롤해도 위에 붙어 있고, 누르면 그 부분으로 내려간다 -->
+    <nav class="shop-tabs" id="shop-tabs" aria-label="상세 구분">
+      <a class="shop-tabs__tab" href="#sec-intro" aria-current="true">소개</a>
+      <a class="shop-tabs__tab" href="#sec-drops">상품·드롭</a>
+      <a class="shop-tabs__tab" href="#sec-reviews">리뷰</a>
+    </nav>
+
+    <article class="mag mag--sections">
+      <section class="shop-section" id="sec-intro" aria-labelledby="sec-intro-title">
+        <h2 class="shop-section__title" id="sec-intro-title">소개</h2>
+        <div class="mag__body" id="shop-intro"></div>
+      </section>
+
+      <section class="shop-section" id="sec-drops" aria-labelledby="sec-drops-title">
+        <h2 class="shop-section__title" id="sec-drops-title">상품·드롭</h2>
+        <p class="shop-section__lead">이 매장이 들어 있는 투어예요. 상품은 매장에서 직접 사고, 투어는 여기서 예약합니다.</p>
+        <div class="shop-list" id="shop-drops"></div>
+      </section>
+
+      <!-- ⑥ 방문자 리뷰 피드: 아직 리뷰가 없을 때 -->
+      <section class="shop-section" id="sec-reviews" aria-labelledby="sec-reviews-title">
+        <h2 class="shop-section__title" id="sec-reviews-title">리뷰</h2>
+        <div class="review-empty">
+          <p class="review-empty__text">아직 방문 후기가 없어요.<br>다녀오셨다면 첫 후기를 남겨 주세요.</p>
+          <button type="button" class="review-empty__btn" disabled>리뷰 쓰기</button>
+        </div>
+      </section>
+    </article>
+
+    <!-- ⑦ 찜하기 · 예약하기 · 길찾기 -->
+    <div class="cta-bar">
+      <button type="button" class="cta-bar__icon" id="shop-like" aria-pressed="false" aria-label="찜하기">
+        <span class="cta-bar__icon-img cta-bar__icon-img--heart" aria-hidden="true"></span>
+      </button>
+      <a class="cta-bar__main" href="magazine.html" id="shop-book">
+        <span class="cta-bar__main-label">예약하기</span>
+        <span class="cta-bar__main-price">₩128,000~ <small>4인 기준</small></span>
+      </a>
+      <a class="cta-bar__icon" id="shop-route" href="map.html" aria-label="길찾기">
+        <span class="cta-bar__icon-img cta-bar__icon-img--nav" aria-hidden="true"></span>
+      </a>
+    </div>
+
+  </main>
+
+  <script src="shops.js?v=2"></script>
+  <script src="shop.js?v=5"></script>
+</body>
+</html>
