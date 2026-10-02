@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THE HARPER 앱 시안 B — 내 정보</title>
+  <meta name="description" content="THE HARPER 모바일앱 시안 B 내 정보(마이페이지) 화면. 설계서 09 구성(프로필 · 저장한 샵 · 방문 히스토리 · 언어/알림 설정 · 고객센터 · 로그아웃)을 색면 블록으로">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tinos&display=swap" rel="stylesheet">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="styles.css?v=27">
+  <link rel="stylesheet" href="block.css?v=4">
+</head>
+<body>
+  <main class="phone phone--my" aria-label="THE HARPER 내 정보">
+
+    <header class="header">
+      <a class="header__logo" href="index.html">THE HARPER</a>
+      <a class="header__avatar" href="my.html" aria-label="내 정보" aria-current="page"></a>
+    </header>
+
+    <div class="content">
+
+      <!-- ① 프로필: 두 톤 큰 제목 + 큰 숫자(저장 · 방문) -->
+      <section class="hello my-hello" aria-labelledby="my-name">
+        <span class="my-hello__avatar" aria-hidden="true"></span>
+        <p class="hello__eyebrow">안녕하세요,</p>
+        <h1 class="hello__title" id="my-name">김하퍼 님</h1>
+        <div class="my-stats">
+          <a class="my-stat" href="#saved"><b>3</b><span>저장한 샵</span></a>
+          <a class="my-stat" href="#history"><b>5</b><span>방문</span></a>
+          <a class="my-stat" href="#lang"><b>KO</b><span>언어</span></a>
+        </div>
+      </section>
+
+      <!-- ② 저장한 샵 · ③ 방문 히스토리: 색면 블록 두 장 -->
+      <section class="stack my-stack" aria-label="저장한 샵과 방문 히스토리">
+        <a class="block block--jade my-block" id="saved" href="search.html">
+          <div class="block__top">
+            <span class="block__label">Saved</span>
+            <span class="block__sub">저장한 샵</span>
+          </div>
+          <ul class="my-block__list">
+            <li><span>썬러브 링크스 성수</span><small>성수</small></li>
+            <li><span>비이커 한남</span><small>한남</small></li>
+            <li><span>LCDC SEOUL</span><small>성수</small></li>
+          </ul>
+          <div class="block__bottom">
+            <span class="block__note">PICK 1 · 성수 2 · 한남 1</span>
+            <span class="block__value">3<small>곳</small></span>
+          </div>
+        </a>
+        <a class="block block--beige my-block" id="history" href="search.html">
+          <div class="block__top">
+            <span class="block__label">History</span>
+            <span class="block__sub">방문 히스토리</span>
+          </div>
+          <ul class="my-block__list my-block__list--dated">
+            <li><time datetime="2026-09-28">09.28</time><span>썬러브 링크스 성수</span><small>DAY DROP</small></li>
+            <li><time datetime="2026-09-21">09.21</time><span>아더 스페이스 3.0</span><small>DAY DROP</small></li>
+            <li><time datetime="2026-09-14">09.14</time><span>비이커 한남</span><small>직접 방문</small></li>
+          </ul>
+          <div class="block__bottom">
+            <span class="block__note">최근 3건 · 전체 보기</span>
+            <span class="block__value">5<small>회</small></span>
+          </div>
+        </a>
+      </section>
+
+      <!-- ④ 언어 / 알림 · 고객센터: 작은 블록 줄 -->
+      <section class="my-settings" aria-label="설정">
+        <p class="eyebrow">설정</p>
+        <div class="stack">
+          <button type="button" class="block block--ink my-row" id="lang" data-drawer="lang-drawer" aria-haspopup="dialog" aria-expanded="false">
+            <div class="block__top">
+              <span class="block__label">Language</span>
+              <span class="block__sub">언어</span>
+            </div>
+            <span class="block__value block__value--sm my-row__value" data-drawer-label>한국어</span>
+          </button>
+          <div class="block block--blush my-row">
+            <div class="block__top">
+              <span class="block__label">Notification</span>
+              <span class="block__sub" id="noti-label">알림</span>
+            </div>
+            <button type="button" class="my-switch" role="switch" aria-checked="true" aria-labelledby="noti-label"><span class="my-switch__text" data-on="ON" data-off="OFF"></span></button>
+          </div>
+          <a class="block block--amber my-row" href="mailto:hello@theharper.co.kr">
+            <div class="block__top">
+              <span class="block__label">Support</span>
+              <span class="block__sub">고객센터</span>
+            </div>
+            <span class="block__value block__value--sm my-row__value">hello@theharper.co.kr</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- ⑤ 로그아웃 -->
+      <div class="my-logout">
+        <button type="button" class="pill pill--ground my-logout__btn">로그아웃</button>
+        <p class="my-logout__ver">THE HARPER 시안 B · v0.1</p>
+      </div>
+
+    </div>
+
+    <!-- 언어 선택 드로어: 설계서 04의 지원 언어 5개 -->
+    <div class="drawer" id="lang-drawer" data-event="langchange" hidden>
+      <div class="drawer__dim" data-drawer-close></div>
+      <div class="drawer__sheet" role="dialog" aria-modal="true" aria-labelledby="lang-drawer-title">
+        <div class="drawer__handle" aria-hidden="true"></div>
+        <p class="drawer__title" id="lang-drawer-title">언어</p>
+        <ul class="drawer__list">
+          <li><button type="button" class="drawer__item" aria-selected="true" data-lang="ko">한국어</button></li>
+          <li><button type="button" class="drawer__item" aria-selected="false" data-lang="en">English</button></li>
+          <li><button type="button" class="drawer__item" aria-selected="false" data-lang="ja">日本語</button></li>
+          <li><button type="button" class="drawer__item" aria-selected="false" data-lang="zh-Hans">简体中文</button></li>
+          <li><button type="button" class="drawer__item" aria-selected="false" data-lang="zh-Hant">繁體中文</button></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 하단 탭: 글자만 -->
+    <nav class="tabbar" aria-label="주요 메뉴">
+      <a class="tab" href="index.html"><span class="tab__label">홈</span></a>
+      <a class="tab" href="search.html"><span class="tab__label">검색</span></a>
+      <a class="tab" href="my.html" aria-current="page"><span class="tab__label">내 정보</span></a>
+    </nav>
+  </main>
+
+  <script src="drawer.js?v=2"></script>
+  <script>
+    /* 알림 스위치: 누르면 ON/OFF 글자와 색이 바뀐다 */
+    (function () {
+      var sw = document.querySelector('.my-switch');
+      if (!sw) return;
+      sw.addEventListener('click', function () {
+        sw.setAttribute('aria-checked', sw.getAttribute('aria-checked') === 'true' ? 'false' : 'true');
+      });
+    })();
+  </script>
+</body>
+</html>

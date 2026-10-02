@@ -2,7 +2,7 @@
 
 모바일앱 두 번째 시안. 뼈대(화면·데이터·동작)는 [the-harper-app](https://github.com/hy0909/the-harper-app) 시안 A를 그대로 가져오고, 겉모습만 색면 블록 방식으로 바꿨다.
 
-- 홈 `index.html`, 검색 `search.html`, 지도 `map.html`, 샵 상세 `shop.html`, 매거진 상세 `magazine.html`
+- 홈 `index.html`, 검색 `search.html`, 지도 `map.html`, 샵 상세 `shop.html`, 매거진 상세 `magazine.html`, 내 정보 `my.html`
 - 시안 B 스타일은 `block.css` 한 파일에 모았다. 시안 A의 `styles.css`·`shop.css`·`magazine.css`를 먼저 읽고 그 위에 덮어쓴다.
 - 색은 디자인 시스템 값만 쓴다. 코코아·그라운드·잉크·안틱 로즈와 보조색 5개(블러시·베이지·제이드·테라코타·앰버).
 - 배포: GitHub Pages(main 브랜치 루트)
@@ -18,3 +18,4 @@
 | 제목은 두 톤(연한 줄 + 진한 줄), 날짜·지역 이름은 크게 | 홈 상단, 에디터's PICK |
 | 알약 모양 전환·버튼 | 목록/지도 전환, 필터, 샵 상세 탭, 예약하기 |
 | 하단 탭은 글자만 | 모든 화면 |
+| 내 정보는 두 톤 인사 + 큰 숫자(저장·방문·언어), 저장한 샵·방문 히스토리는 색면 블록, 설정은 작은 블록 줄 | 내 정보 |

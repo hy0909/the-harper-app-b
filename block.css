@@ -251,3 +251,62 @@ body { background: #e4e1da; }
 /* 지도 화면은 지도가 탭 바까지 닿게 */
 .phone--map { padding-bottom: 56px; }
 .shop-section .shop-row { border-radius: var(--radius); }
+
+/* ------------------------------------------------------------------
+   내 정보(마이페이지) — 설계서 09. 프로필은 두 톤 제목 + 큰 숫자, 나머지는 색면 블록
+   ------------------------------------------------------------------ */
+.phone--my .content { gap: 32px; }
+.my-hello { gap: 4px; }
+.my-hello__avatar {
+  width: 56px; height: 56px; border-radius: 999px; background: var(--ink);
+  position: relative; display: block; margin-bottom: 14px;
+}
+.my-hello__avatar::after { content: ""; position: absolute; inset: 16px; border-radius: 999px; background: var(--rose); }
+.my-hello .hello__eyebrow { font-size: 24px; }
+.my-hello .hello__title { font-size: 34px; }
+.my-stats { margin-top: 18px; display: flex; gap: 28px; }
+.my-stat { display: flex; flex-direction: column; gap: 2px; color: var(--ink); text-decoration: none; }
+.my-stat b { font-size: 40px; font-weight: 800; line-height: 1; letter-spacing: -0.04em; }
+.my-stat span { font-size: 12px; font-weight: 600; color: var(--ink-60); }
+
+/* 저장·히스토리 블록 */
+.my-stack { padding: 0 16px; gap: 8px; }
+.my-block { min-height: 0; gap: 16px; padding: 20px 24px 18px; border-radius: var(--radius); }
+.my-block__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.my-block__list li {
+  display: flex; align-items: baseline; gap: 10px; padding: 9px 0;
+  font-size: 15px; font-weight: 600; letter-spacing: -0.01em;
+}
+.my-block__list li + li { box-shadow: inset 0 1px 0 rgba(58, 54, 47, 0.14); }
+.my-block__list li span { flex: 1 0 0; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.my-block__list li small { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.65; }
+.my-block__list li time { flex: 0 0 44px; font-size: 13px; font-weight: 700; opacity: 0.7; font-variant-numeric: tabular-nums; }
+
+/* 설정: 작은 블록 줄(왼쪽 라벨, 오른쪽 값) */
+.my-settings { display: flex; flex-direction: column; gap: 12px; }
+.my-settings .stack { padding: 0 16px; gap: 8px; }
+.my-row {
+  width: 100%; min-height: 0; flex-direction: row; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 16px 24px; border-radius: var(--radius); text-align: left; cursor: pointer;
+}
+.my-row .block__top { gap: 0; }
+.my-row .block__label { font-size: 10px; }
+.my-row .block__sub { font-size: 17px; font-weight: 700; }
+.my-row__value { opacity: 0.85; font-size: 15px; font-weight: 600; letter-spacing: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 55%; }
+
+/* 알림 스위치: 알약 안에 ON/OFF 글자. 켜짐은 잉크, 꺼짐은 바탕색을 눌러서 */
+.my-switch {
+  flex-shrink: 0; height: 32px; min-width: 60px; padding: 0 12px; border-radius: 999px;
+  background: var(--ink); color: var(--ground);
+  font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+.my-switch[aria-checked="true"] .my-switch__text::before { content: attr(data-on); }
+.my-switch[aria-checked="false"] { background: rgba(58, 54, 47, 0.14); color: var(--on-blush); }
+.my-switch[aria-checked="false"] .my-switch__text::before { content: attr(data-off); }
+
+/* 로그아웃 */
+.my-logout { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 0 16px; }
+.my-logout__btn { width: 100%; height: 48px; border: 1px solid var(--gray-200); }
+.my-logout__ver { font-size: 11px; font-weight: 500; color: var(--ink-50); }
