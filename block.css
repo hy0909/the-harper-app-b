@@ -188,7 +188,6 @@ body { background: #e4e1da; }
 /* 지역별 색면 */
 .shop-row[data-area="seongsu"] { background: var(--jade); color: var(--on-jade); }
 .shop-row[data-area="hannam"] { background: var(--blush); color: var(--on-blush); }
-.shop-row[data-area="apgujeong"] { background: var(--beige); color: var(--on-beige); }
 .shop-row[hidden] { display: none; }
 
 /* 아래에서 올라오는 드로어 */
