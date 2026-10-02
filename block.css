@@ -99,7 +99,14 @@ body { background: #e4e1da; }
   border-radius: var(--radius); padding: 20px 24px 24px; gap: 20px;
   box-shadow: none !important; z-index: auto;
 }
-.feed-card:nth-child(-n+3) { margin-bottom: -168px; } /* 머리(라벨+제목)만 남기고 다음 카드가 덮는다 */
+.feed-card:not(:last-child) { margin-bottom: -168px; } /* 접힌 카드: 머리만 남기고 다음 카드가 덮는다 */
+.feed-card--open { margin-bottom: 0 !important; } /* 펼친 카드: 다음 카드가 덮지 않아 사진·가격이 보인다 */
+.feed-card__head { flex-direction: row; align-items: center; gap: 12px; }
+.feed-card__text { flex: 1 0 0; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.feed-card__thumb { flex: 0 0 44px; width: 44px; height: 44px; border-radius: 999px; overflow: hidden; }
+.feed-card__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.feed-card--open .feed-card__thumb { display: none; }
+.feed-card { transition: margin-bottom 0.25s ease; }
 .feed-card:nth-child(n+2) { z-index: 1; }
 .feed-card:nth-child(3) { z-index: 2; }
 .feed-card:nth-child(4) { z-index: 3; }

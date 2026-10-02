@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Tinos&display=swap" rel="stylesheet">
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <link rel="stylesheet" href="styles.css?v=27">
-  <link rel="stylesheet" href="block.css?v=1">
+  <link rel="stylesheet" href="block.css?v=2">
 </head>
 <body>
   <main class="phone phone--home" aria-label="THE HARPER 앱 홈">
@@ -111,17 +111,20 @@
         </div>
       </section>
 
-      <!-- 에디터 큐레이션 피드: 겹쳐 쌓인 카드. 머리만 보이고 마지막 장만 다 보인다 -->
+      <!-- 에디터 큐레이션 피드: 겹쳐 쌓인 카드. 접힌 카드는 머리(라벨·제목·작은 사진)만 보이고, 누르면 펼쳐져 큰 사진과 가격이 보인다. 펼쳐진 카드를 다시 누르면 매거진으로 -->
       <section class="feed" aria-labelledby="feed-title">
         <div class="feed__head">
           <p class="eyebrow" id="feed-title">에디터 큐레이션 피드</p>
           <span class="feed__count">4</span>
         </div>
         <div class="feed__list">
-          <a class="feed-card feed-card--blush" href="magazine.html">
+          <a class="feed-card feed-card--blush feed-card--open" href="magazine.html">
             <div class="feed-card__head">
-              <span class="block__label">성수 · 에디터H</span>
-              <h2 class="feed-card__title">간판 없는 성수 골목의 유리문 쇼룸</h2>
+              <div class="feed-card__text">
+                <span class="block__label">성수 · 에디터H</span>
+                <h2 class="feed-card__title">간판 없는 성수 골목의 유리문 쇼룸</h2>
+              </div>
+              <span class="feed-card__thumb" aria-hidden="true"><img src="assets/photos/seongsu-contemporary.jpg" alt=""></span>
             </div>
             <div class="feed-card__row">
               <div class="photo photo--card"><img class="photo__img" src="assets/photos/seongsu-contemporary.jpg" alt=""></div>
@@ -130,8 +133,11 @@
           </a>
           <a class="feed-card feed-card--beige" href="magazine.html">
             <div class="feed-card__head">
-              <span class="block__label">한남 · 에디터H</span>
-              <h2 class="feed-card__title">한남 언덕길 끝, 계단 위 부티크</h2>
+              <div class="feed-card__text">
+                <span class="block__label">한남 · 에디터H</span>
+                <h2 class="feed-card__title">한남 언덕길 끝, 계단 위 부티크</h2>
+              </div>
+              <span class="feed-card__thumb" aria-hidden="true"><img src="assets/photos/hannam-hillside.jpg" alt=""></span>
             </div>
             <div class="feed-card__row">
               <div class="photo photo--card"><img class="photo__img" src="assets/photos/hannam-hillside.jpg" alt=""></div>
@@ -140,8 +146,11 @@
           </a>
           <a class="feed-card feed-card--jade" href="magazine.html">
             <div class="feed-card__head">
-              <span class="block__label">압구정 · 에디터H</span>
-              <h2 class="feed-card__title">압구정 재단사의 스튜디오 방문</h2>
+              <div class="feed-card__text">
+                <span class="block__label">압구정 · 에디터H</span>
+                <h2 class="feed-card__title">압구정 재단사의 스튜디오 방문</h2>
+              </div>
+              <span class="feed-card__thumb" aria-hidden="true"><img src="assets/photos/apgujeong-studio.jpg" alt=""></span>
             </div>
             <div class="feed-card__row">
               <div class="photo photo--card"><img class="photo__img" src="assets/photos/apgujeong-studio.jpg" alt=""></div>
@@ -150,8 +159,11 @@
           </a>
           <a class="feed-card feed-card--terracotta" href="magazine.html">
             <div class="feed-card__head">
-              <span class="block__label">한남 · 에디터H</span>
-              <h2 class="feed-card__title">한남 빈티지 가죽과 데님 셀렉트</h2>
+              <div class="feed-card__text">
+                <span class="block__label">한남 · 에디터H</span>
+                <h2 class="feed-card__title">한남 빈티지 가죽과 데님 셀렉트</h2>
+              </div>
+              <span class="feed-card__thumb" aria-hidden="true"><img src="assets/photos/hannam-vintage.jpg" alt=""></span>
             </div>
             <div class="feed-card__row">
               <div class="photo photo--card"><img class="photo__img" src="assets/photos/hannam-vintage.jpg" alt=""></div>
@@ -220,5 +232,7 @@
       <a class="tab" href="#" aria-disabled="true"><span class="tab__label">내 정보</span></a>
     </nav>
   </main>
+
+  <script src="feed.js?v=1"></script>
 </body>
 </html>
