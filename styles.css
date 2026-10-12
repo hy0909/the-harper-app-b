@@ -1,4 +1,13 @@
 /* THE HARPER 앱 홈 화면 미리보기 — 피그마 w:340 프레임을 웹으로 옮김 */
+/* 따옴표(‘ ’ “ ”)만 Noto Sans 로 그린다. Google Fonts 의 Noto Sans latin 조각과 같은 파일이고, 나머지 글자는 아래 Pretendard 로 간다 */
+@font-face {
+  font-family: "Harper Quote";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/notosans/v42/o-0bIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjc5a7du3mhPy0.woff2) format('woff2');
+  unicode-range: U+2018-201D;
+}
 :root {
   --ink: #3a362f;      /* 100 */
   --ink-70: #5b5650;   /* 70 */
@@ -13,8 +22,8 @@
   --jade: #8fa693;
   --terracotta: #c97b5c;
   --amber: #c9a15c;
-  --font-ui: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-ui: "Harper Quote", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-sans: "Harper Quote", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-logo: "Tinos", "Times New Roman", Times, serif;
 }
 
